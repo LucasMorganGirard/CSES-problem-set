@@ -11,17 +11,17 @@
 #include <iostream>
 
 int main(){
-    unsigned long n, input, sum(0);
-    std::cin >> n;
+    unsigned long nbInputs, input, sumOfInputs(0);
+    std::cin >> nbInputs;
 
-    for (unsigned long i(0); i < n-1; i++)
+    for (unsigned long i(0); i < nbInputs-1; i++)
     {
         std::cin >> input;
-        sum+=input;
+        sumOfInputs += input;
     }
     
     //expected sum of 1+2+..+n-1+n - actual sum = missing number
-    std::cout << ((n+1)*n)/2-sum;
+    std::cout << ((nbInputs+1)*nbInputs)/2-sumOfInputs;
 
     return 0;
 }

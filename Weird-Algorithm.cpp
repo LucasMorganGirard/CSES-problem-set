@@ -23,7 +23,7 @@ int main(){
         }else{      //even
             n /= 2;
         }
-
+        
         std::cout << n << ' ';
     }
     

@@ -12,23 +12,25 @@
 #include <string>
 
 int main(){
-    unsigned current(1), max(0);
-    std::string s;
-    std::cin >> s;
-    char previous(' ');
+    unsigned currentConsecNbOfChar(1), maxConsecNbOfChar(0);
+    std::string str;
+    std::cin >> str;
+    char previousChar(' ');
 
-    for (char& c : s)
+    for (char& currentChar : str)
     {
-        if(c==previous){
-            current++;
+        if(currentChar == previousChar){
+            currentConsecNbOfChar++;
         }else{
-            current=1;
+            currentConsecNbOfChar = 1;
         }
-        if(current>max){
-            max=current;
+
+        if(currentConsecNbOfChar > maxConsecNbOfChar){
+            maxConsecNbOfChar = currentConsecNbOfChar;
         }
-        previous = c;
+        
+        previousChar = currentChar;
     }
     
-    std::cout << max;
+    std::cout << maxConsecNbOfChar;
 }
