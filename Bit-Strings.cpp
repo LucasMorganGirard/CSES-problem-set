@@ -5,7 +5,7 @@
 */
 
 /*
-    two set https://cses.fi/problemset/task/1092
+    bit strings https://cses.fi/problemset/task/1617
 */
 
 #include <iostream>
@@ -16,7 +16,7 @@ int main(){
     std::cin >> n;
 
     //pow too slow, manualy compute 2 power n
-    for(unsigned i(1); i<n; i++){
+    for(unsigned i(1); i < n; i++){
         res <<= 1;
         res %= 1000000007;
     }
