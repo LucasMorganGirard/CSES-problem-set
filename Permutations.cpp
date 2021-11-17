@@ -26,6 +26,5 @@ int main(){
         std::cout << "NO SOLUTION";
     }
 
-
     return 0;
 }
