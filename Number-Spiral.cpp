@@ -10,19 +10,40 @@
 
 #include <iostream>
 
-int main(){
-    unsigned long nbInput, x, y;
-    std::cin >> nbInput;
+int main()
+{
+	unsigned long nbInput, x, y;
+	std::cin >> nbInput;
 
-    for(unsigned long i(0); i < nbInput; i++){
-        std::cin >> y >> x;
-        if(x>y){
-            std::cout << (x-1)*(x-1) + (2*x-y)*(x&1) + (y)*!(x&1);
-        }else{
-            std::cout << (y-1)*(y-1) + (2*y-x)*!(y&1) + (x)*(y&1);
-        }
-        std::cout << "\n";
-    }
+	for (unsigned long i(0); i < nbInput; i++)
+	{
+		std::cin >> y >> x;
+		if (x > y)
+		{
+			if (x & 1)
+			{
+				std::cout << x * x - y + 1;
+			}
+			else
+			{
+				x--;
+				std::cout << x * x + y;
+			}
+		}
+		else
+		{
+			if (y & 1)
+			{
+				y--;
+				std::cout << y * y + x;
+			}
+			else
+			{
+				std::cout << y * y - x + 1;
+			}
+		}
+		std::cout << "\n";
+	}
 
-    return 0;
+	return 0;
 }

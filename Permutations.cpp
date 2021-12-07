@@ -5,26 +5,31 @@
 */
 
 /*
-    Premutations https://cses.fi/problemset/task/1070
+	Premutations https://cses.fi/problemset/task/1070
 */
 
 #include <iostream>
 
-int main(){
-    unsigned long permutationSize;
-    std::cin >> permutationSize;
+int main()
+{
+	unsigned long permutationSize;
+	std::cin >> permutationSize;
 
-    if(permutationSize > 3 || permutationSize == 1){
-        for(unsigned i(2); i <= permutationSize; i+=2){
-            std::cout << i << " ";
-        }
-        for (unsigned i(1); i <= permutationSize; i+=2)
-        {
-            std::cout << i << " ";
-        }
-    }else{
-        std::cout << "NO SOLUTION";
-    }
+	if (permutationSize > 3 || permutationSize == 1)
+	{
+		for (unsigned i(2); i <= permutationSize; i += 2)
+		{
+			std::cout << i << " ";
+		}
+		for (unsigned i(1); i <= permutationSize; i += 2)
+		{
+			std::cout << i << " ";
+		}
+	}
+	else
+	{
+		std::cout << "NO SOLUTION";
+	}
 
-    return 0;
+	return 0;
 }

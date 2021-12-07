@@ -5,23 +5,17 @@
 */
 
 /*
-	bit strings https://cses.fi/problemset/task/1617
+	trailing zeros https://cses.fi/problemset/task/1618
 */
 
 #include <iostream>
 #include <math.h>
 
+//number of 5s
 int main()
 {
-	unsigned long long n, res(2);
+	unsigned long n;
 	std::cin >> n;
-
-	//pow too slow, manualy compute 2 power n
-	for (unsigned i(1); i < n; i++)
-	{
-		res <<= 1;
-		res %= 1000000007;
-	}
-
-	std::cout << res;
+	std::cout << floor(n / 5);
+	return 0;
 }

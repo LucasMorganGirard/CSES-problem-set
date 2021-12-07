@@ -5,32 +5,37 @@
 */
 
 /*
-    Repetitions https://cses.fi/problemset/task/1069
+	Repetitions https://cses.fi/problemset/task/1069
 */
 
 #include <iostream>
 #include <string>
 
-int main(){
-    unsigned currentConsecNbOfChar(1), maxConsecNbOfChar(0);
-    std::string str;
-    std::cin >> str;
-    char previousChar(' ');
+int main()
+{
+	unsigned currentConsecNbOfChar(1), maxConsecNbOfChar(0);
+	std::string str;
+	std::cin >> str;
+	char previousChar(' ');
 
-    for (char& currentChar : str)
-    {
-        if(currentChar == previousChar){
-            currentConsecNbOfChar++;
-        }else{
-            currentConsecNbOfChar = 1;
-        }
+	for (char &currentChar : str)
+	{
+		if (currentChar == previousChar)
+		{
+			currentConsecNbOfChar++;
+		}
+		else
+		{
+			currentConsecNbOfChar = 1;
+		}
 
-        if(currentConsecNbOfChar > maxConsecNbOfChar){
-            maxConsecNbOfChar = currentConsecNbOfChar;
-        }
-        
-        previousChar = currentChar;
-    }
-    
-    std::cout << maxConsecNbOfChar;
+		if (currentConsecNbOfChar > maxConsecNbOfChar)
+		{
+			maxConsecNbOfChar = currentConsecNbOfChar;
+		}
+
+		previousChar = currentChar;
+	}
+
+	std::cout << maxConsecNbOfChar;
 }
