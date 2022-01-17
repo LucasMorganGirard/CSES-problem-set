@@ -31,7 +31,7 @@ char* INPUT;
 class grid{
 private:
 	/*
-		x, y index of the cases visited by current path
+		y, x index of the cases visited by current path -> origin (0,0) at the top left.
 	*/
 	bool visited[MATRICE_SIZE][MATRICE_SIZE];
 
@@ -46,15 +46,25 @@ private:
 	const size_t currentX;
 	const size_t currentY;
 
+	/*
+		column completness count
+		line completness count
+		if a column/line is complete (=MATRICE_SIZE), any column/line on the side opposite to the end
+		of the complete column/line must be complete too cause there is no path anymore to the other
+		side of the complete column. Column 0 and line MATRICE SIZE are not counted
+	*/
+	size_t columnCount[MATRICE_SIZE-1];
+	size_t lineCount[MATRICE_SIZE-1];
+
 public:
 	/*
 		first grid constructor
 	*/
 	grid() : nbCaseVisited(1), currentX(0), currentY(0){
 
-		for(size_t i(0); i < MATRICE_SIZE; i++){
-			for(size_t j(0); j < MATRICE_SIZE; j++){
-				this->visited[i][j] = 0;
+		for(size_t y(0); y < MATRICE_SIZE; y++){
+			for(size_t x(0); x < MATRICE_SIZE; x++){
+				this->visited[y][x] = 0;
 			}
 		}
 
@@ -68,16 +78,16 @@ public:
 		assert(currentX < MATRICE_SIZE);
 		assert(currentY < MATRICE_SIZE);
 
-		for(size_t i(0); i < MATRICE_SIZE; i++){
-			for(size_t j(0); j < MATRICE_SIZE; j++){
-				this->visited[i][j] = previousStep.visited[i][j];
+		for(size_t y(0); y < MATRICE_SIZE; y++){
+			for(size_t x(0); x < MATRICE_SIZE; x++){
+				this->visited[y][x] = previousStep.visited[y][x];
 			}
 		}
 
 		/*
 			set current location to visited
 		*/
-		this->visited[currentX][currentY] = 1;
+		this->visited[currentY][currentX] = 1;
 	}
 
 	size_t getCurrentX() const{
@@ -94,29 +104,29 @@ public:
 
 	bool isFreeUp() const{
 		bool result(false);
-		if(currentX > 0){
-			result = !visited[currentX - 1][currentY];
+		if(currentY > 0){
+			result = !visited[currentY - 1][currentX];
 		}
 		return result;
 	}
 	bool isFreeRight() const{
 		bool result(false);
-		if(currentY < MATRICE_SIZE - 1){
-			result = !visited[currentX][currentY + 1];
+		if(currentX < MATRICE_SIZE - 1){
+			result = !visited[currentY][currentX + 1];
 		}
 		return result;
 	}
 	bool isFreeDown() const{
 		bool result(false);
-		if(currentX < MATRICE_SIZE - 1){
-			result = !visited[currentX + 1][currentY];
+		if(currentY < MATRICE_SIZE - 1){
+			result = !visited[currentY + 1][currentX];
 		}
 		return result;
 	}
 	bool isFreeLeft() const{
 		bool result(false);
-		if(currentY > 0){
-			result = !visited[currentX][currentY - 1];
+		if(currentX > 0){
+			result = !visited[currentY][currentX - 1];
 		}
 		return result;
 	}
@@ -125,9 +135,9 @@ public:
 		debug only
 	*/
 	void printPath(){
-		for(size_t i(0); i < MATRICE_SIZE; i++){
-			for(size_t j(0); j < MATRICE_SIZE; j++){
-				if(visited[i][j]){
+		for(size_t y(0); y < MATRICE_SIZE; y++){
+			for(size_t x(0); x < MATRICE_SIZE; x++){
+				if(visited[y][x]){
 					std::cout << "X ";
 				}else{
 					std::cout << "O ";
@@ -143,7 +153,7 @@ void countPath(grid currentPath, size_t& accumulateur){
 	/*
 		test if 
 	*/
-	if(currentPath.getCurrentX() == MATRICE_SIZE-1 && currentPath.getCurrentY() == 0){
+	if(currentPath.getCurrentY() == MATRICE_SIZE-1 && currentPath.getCurrentX() == 0){
 		if(currentPath.getNbCaseVisited() == TOTAL_CASES){
 			accumulateur++;
 		}
@@ -197,19 +207,19 @@ void countPath(grid currentPath, size_t& accumulateur){
 		*/
 		if(!(up && down && !right && !left)&&!(!up && !down && right && left)){
 			if(up){
-				grid nextSepTop(currentPath, currentPath.getCurrentX() - 1, currentPath.getCurrentY());
+				grid nextSepTop(currentPath, currentPath.getCurrentX(), currentPath.getCurrentY() - 1);
 				countPath(nextSepTop, accumulateur);
 			}
 			if(right){
-				grid nextSepTop(currentPath, currentPath.getCurrentX(), currentPath.getCurrentY() + 1);
-				countPath(nextSepTop, accumulateur);
-			}
-			if(down){
 				grid nextSepTop(currentPath, currentPath.getCurrentX() + 1, currentPath.getCurrentY());
 				countPath(nextSepTop, accumulateur);
 			}
+			if(down){
+				grid nextSepTop(currentPath, currentPath.getCurrentX(), currentPath.getCurrentY() + 1);
+				countPath(nextSepTop, accumulateur);
+			}
 			if(left){
-				grid nextSepTop(currentPath, currentPath.getCurrentX(), currentPath.getCurrentY() - 1);
+				grid nextSepTop(currentPath, currentPath.getCurrentX() - 1, currentPath.getCurrentY());
 				countPath(nextSepTop, accumulateur);
 			}
 		}
