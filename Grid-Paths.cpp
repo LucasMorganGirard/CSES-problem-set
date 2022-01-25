@@ -21,6 +21,9 @@
 const size_t MATRICE_SIZE(7);
 const size_t TOTAL_CASES(MATRICE_SIZE*MATRICE_SIZE);
 char* INPUT;
+size_t RESULT;
+
+size_t DEBUG_ACC(0);
 
 /**
  * @brief store the current path, its lenght and the current position.
@@ -174,14 +177,15 @@ public:
 	}
 };
 
-void countPath(grid& currentPath, size_t& accumulateur){
+void countPath(grid& path){
+	DEBUG_ACC++;
 	/*
 		test if current (x, y) are at the end point (0, MATRICE_SIZE - 1) and if they are test if
 		all cases have been visited by current path
 	*/
-	if(currentPath.isDone()){
-		if(currentPath.getNbCaseVisited() == TOTAL_CASES){
-			accumulateur++;
+	if(path.isDone()){
+		if(path.getNbCaseVisited() == TOTAL_CASES){
+			RESULT++;
 		}
 		return;
 	}
@@ -194,27 +198,27 @@ void countPath(grid& currentPath, size_t& accumulateur){
 	bool down(false);
 	bool left(false);
 	bool forced(false);
-	switch(INPUT[currentPath.getNbCaseVisited() - 1]){
+	switch(INPUT[path.getNbCaseVisited() - 1]){
 		case 'U': 
-		if(currentPath.isFreeUp()){
+		if(path.isFreeUp()){
 			up = true;
 		}
 		forced = true;
 		break;
 		case 'R': 
-		if(currentPath.isFreeRight()){
+		if(path.isFreeRight()){
 			right = true;
 		}
 		forced = true;
 		break;
 		case 'D': 
-		if(currentPath.isFreeDown()){
+		if(path.isFreeDown()){
 			down = true;
 		}
 		forced = true;
 		break;
 		case 'L':
-		if(currentPath.isFreeLeft()){
+		if(path.isFreeLeft()){
 			left = true;
 		}
 		forced = true;
@@ -222,10 +226,10 @@ void countPath(grid& currentPath, size_t& accumulateur){
 	}
 	
 	if(!forced){
-		up = currentPath.isFreeUp();
-		left = currentPath.isFreeLeft();
-		down = currentPath.isFreeDown();
-		right = currentPath.isFreeRight();
+		up = path.isFreeUp();
+		left = path.isFreeLeft();
+		down = path.isFreeDown();
+		right = path.isFreeRight();
 	}
 	/*
 		if two way split, path is not viable
@@ -237,29 +241,29 @@ void countPath(grid& currentPath, size_t& accumulateur){
 		return;
 
 	if(up){
-		currentPath.goUp(true);
-		countPath(currentPath, accumulateur);
-		currentPath.goDown(false);
+		path.goUp(true);
+		countPath(path);
+		path.goDown(false);
 	}
 	if(right){
-		currentPath.goRight(true);
-		countPath(currentPath, accumulateur);
-		currentPath.goLeft(false);
+		path.goRight(true);
+		countPath(path);
+		path.goLeft(false);
 	}
 	if(down){
-		currentPath.goDown(true);
-		countPath(currentPath, accumulateur);
-		currentPath.goUp(false);
+		path.goDown(true);
+		countPath(path);
+		path.goUp(false);
 	}
 	if(left){
-		currentPath.goLeft(true);
-		countPath(currentPath, accumulateur);
-		currentPath.goRight(false);
+		path.goLeft(true);
+		countPath(path);
+		path.goRight(false);
 	}
 }
 
 int main(){
-	size_t anwser(0);
+	RESULT = 0;
 	char forcedPath[TOTAL_CASES-1];
 
 	for(size_t i(0); i < TOTAL_CASES-1; i++){
@@ -268,9 +272,9 @@ int main(){
 
 	INPUT = forcedPath;
 
-	grid start;
-	countPath(start, anwser);
+	grid path;
+	countPath(path);
 
-	std::cout << anwser << std::endl;
+	std::cout << RESULT << std::endl;
 	return 0;
 }
