@@ -5,7 +5,7 @@
 */
 
 /*
-	Repetitions https://cses.fi/problemset/task/1069
+	repetitions https://cses.fi/problemset/task/1069
 */
 
 #include <iostream>

@@ -5,7 +5,7 @@
 */
 
 /*
-	Apple Division https://cses.fi/problemset/task/1623
+	apple division https://cses.fi/problemset/task/1623
 */
 
 #include <iostream>

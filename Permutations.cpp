@@ -5,7 +5,7 @@
 */
 
 /*
-	Premutations https://cses.fi/problemset/task/1070
+	premutations https://cses.fi/problemset/task/1070
 */
 
 #include <iostream>

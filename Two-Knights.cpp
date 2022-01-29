@@ -5,7 +5,7 @@
 */
 
 /*
-	Two Knights https://cses.fi/problemset/task/1072
+	two knights https://cses.fi/problemset/task/1072
 */
 
 #include <iostream>
